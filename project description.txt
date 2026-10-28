@@ -1,0 +1,173 @@
+Here is the updated, comprehensive design and functional specification for the **Intelligent Course Recommendation System**, incorporating multi-role authentication, teacher grading workflows, student grade-tracking, and interactive AI advisory features.
+
+---
+
+# System Architecture & Role Overview
+
+The application is structured into four primary functional portals, anchored by a centralized **Knowledge Base & Default Reasoning Engine**:
+
+```
+                              ┌───────────────────────────┐
+                              │  Centralized Auth Portal  │
+                              │  (Student, Teacher, Admin)│
+                              └─────────────┬─────────────┘
+                                            │
+         ┌──────────────────────────────────┼──────────────────────────────────┐
+         │                                  │                                  │
+         ▼                                  ▼                                  ▼
+┌──────────────────┐              ┌──────────────────┐              ┌──────────────────┐
+│  Student Portal  │              │  Teacher Portal  │              │   Admin Portal   │
+│ • View Grades    │              │ • Marks Entry    │              │ • KB Rule Engine │
+│ • AI Advisor     │              │ • Roster Manage  │              │ • Course Catalog │
+│ • Plan Electives │              │ • Grade Insights │              │ • User Access    │
+└────────┬─────────┘              └────────┬─────────┘              └────────┬─────────┘
+         │                                 │                                 │
+         └─────────────────────────────────┼─────────────────────────────────┘
+                                           │
+                                           ▼
+                       ┌──────────────────────────────────────┐
+                       │ Knowledge Base & Reasoning Core      │
+                       │ • CGPA Auto-Calculations             │
+                       │ • Default Rules (Career Paths)       │
+                       │ • Exception Rules (Prereqs/Cutoffs)  │
+                       └──────────────────────────────────────┘
+
+```
+
+---
+
+# Detailed Screen & Module Specifications
+
+## 1. Unified Authentication & Access Gateway
+
+### Layout & Elements
+
+* **Role Switcher Tabs:** A dynamic tab control at the top of the card allowing the user to select between **Student**, **Teacher**, and **Administrator**.
+* **Identity Inputs:**
+* Student: Student ID / Roll Number + Password.
+* Teacher: Faculty Employee ID + Password + Department Selector.
+* Admin: Institutional Master Email + Multi-Factor Auth (MFA) PIN.
+
+
+* **Smart Redirect Handler:** Automatically routes users to their respective role-specific dashboard upon successful credential verification.
+
+---
+
+## 2. Teacher Portal: Marks Entry & Gradebook
+
+This portal allows faculty members to manage student marks, which immediately updates the Knowledge Base used to evaluate recommendation rules.
+
+### Screen 2.1: Course & Section Selector
+
+* **Context Bar:** Displays the assigned department, current academic semester, and list of active courses assigned to the instructor.
+* **Batch Selectors:** Dropdowns for Course Code, Academic Year, and Class Section.
+
+### Screen 2.2: Marks Entry Sheet
+
+* **Spreadsheet-Style Grid:**
+* **Columns:** Student Roll Number, Student Name, Continuous Internal Evaluation (CIE), Lab Practical Marks, End-Semester Exam Marks, and Total Calculated Score.
+* **Dynamic Validation:** Input fields highlight green for valid ranges and flag red if values exceed the maximum allowable marks.
+* **Auto-Grade Translation:** Dynamically converts total numerical marks to institutional letter grades (e.g., $90+ \rightarrow A+$, $80\text{--}89 \rightarrow A$) and updates course credit points.
+
+
+* **Action Tools:**
+* **Bulk CSV/Excel Upload:** Upload class marks via spreadsheet template.
+* **Lock & Publish Button:** Finalizes the grade roster, instantly triggering a background recalculation of the student's cumulative CGPA in the Knowledge Base.
+
+
+
+---
+
+## 3. Student Portal: Grades, AI Advisor & Elective Builder
+
+### Screen 3.1: Academic Records & Grade Dashboard
+
+* **Performance Metric Cards:**
+* **Cumulative CGPA Gauge:** Visual meter displaying current overall CGPA.
+* **Credits Earned:** Total credits cleared vs. required credits for graduation.
+* **Current Standing:** Academic standing indicator (e.g., Dean's List, Good Standing, Warning).
+
+
+* **Semester-wise Grade History Table:**
+* Expandable accordion tables for each completed semester.
+* Lists Course Code, Course Title, Type (Core/Elective), Credits, Marks Obtained, and Letter Grade awarded by the faculty.
+
+
+
+---
+
+### Screen 3.2: "Ask AI for Help" — Interactive Course Advisory
+
+A dedicated workspace where students request intelligent elective suggestions based on their recorded performance, career aspirations, and personal interests.
+
+* **Profile Review Banner:** Summarizes the student’s live CGPA pulled directly from the teacher's grading database and displays cleared prerequisite courses.
+* **Preference Input Panel:**
+* **Career Goal Selector:** Searchable goal cards (e.g., *Data Engineer, Embedded Systems Architect, Full-Stack Developer, AI Researcher*).
+* **Interest Pill Cloud:** Multi-select topic tags (e.g., `#ComputerVision`, `#Cybersecurity`, `#CloudComputing`, `#FinTech`).
+* **Target Workload Slider:** Desired elective credit count for the upcoming semester.
+
+
+* **"Generate Intelligent Recommendations" Action Button:** Triggers the Default Reasoning evaluation.
+
+---
+
+### Screen 3.3: AI Recommendations & Reasoning Inspector
+
+Displays the electives generated by the default reasoning process, with transparent justification for each suggestion.
+
+* **Recommendation Cards:**
+* **Match Percentage Pill:** Visual score highlighting how well the course satisfies goals and interests.
+* **Reasoning Summary Callout:** Explicitly shows which **Default Rule** was applied (e.g., *"Recommended by default for students targeting the Cloud Architecture career path"*).
+* **Prerequisite Verification Tag:** Displays passed prerequisites from the teacher's grading records.
+
+
+* **"Why This Course?" Logic Inspector (Slide-out Drawer):**
+* **Default Rule Applied:** Shows the standard baseline rule derived from the Knowledge Base.
+* **Exception Checks (Defeaters Evaluated):**
+* *CGPA Threshold Check:* Shows student's actual CGPA vs. the course cutoff (e.g., $8.2 \ge 7.5 \rightarrow \text{Passed}$).
+* *Prerequisite Status:* Verifies that foundational courses have a passing grade from the teacher gradebook.
+
+
+
+
+* **Overridden / Excluded Electives Drawer:**
+* Shows electives that align with the student's career choice but are blocked because an exception condition was triggered (e.g., *"Advanced Deep Learning: Blocked because prerequisite Neural Networks is missing or CGPA is below 8.0"*).
+
+
+
+---
+
+### Screen 3.4: Semester Elective Plan Builder
+
+* **Course Staging Bucket:** Drag-and-drop workspace where students assemble their chosen electives.
+* **Credit Balance Bar:** Real-time progress bar ensuring the student remains within minimum and maximum elective credit limits.
+* **Final Submission Flow:** Direct submission to the student's academic advisor or institutional registrar for official enrollment.
+
+---
+
+## 4. Administrator Portal: Knowledge Base & System Governance
+
+### Screen 4.1: Knowledge Base Rule Builder
+
+* **Course Catalog Management:** CRUD interface to manage Course Codes, Titles, Syllabi, Credits, and Active Status.
+* **Prerequisite & Rule Graph:** Visual node editor to link course dependencies, minimum grade cutoffs, and departmental prerequisites.
+* **Default Career Blueprint Mapper:** Associate career tracks with default course packages and establish exception/defeater thresholds.
+
+### Screen 4.2: User & Roster Management
+
+* Account provisioning for students and faculty.
+* Departmental mapping and course-to-teacher assignment tools.
+
+---
+
+# Comprehensive UX & Component Mapping
+
+| Role | Screen / View | Primary Purpose | Key Interactive Elements |
+| --- | --- | --- | --- |
+| **All** | **Auth Gateway** | Role-based secure access | Role switcher tabs, ID/password fields, MFA modal. |
+| **Teacher** | **Marks Entry Sheet** | Record student assessment scores | Excel-style editable grid, CSV importer, grade auto-calculator. |
+| **Student** | **Grades Dashboard** | Review published scores and CGPA | Cumulative CGPA gauge, semester accordion tables, credit counters. |
+| **Student** | **AI Advisor Wizard** | Capture elective preferences | Career goal cards, interest tag picker, preference weights. |
+| **Student** | **Recommendation View** | Inspect AI-recommended electives | Match score meters, default rule badges, exception inspector. |
+| **Student** | **Plan Builder** | Finalize semester elective load | Staging basket, live credit progress bar, finalize button. |
+| **Admin** | **KB Rule Manager** | Configure rules and exceptions | Prerequisite visual graph, career-course mapper, cutoff editor. |

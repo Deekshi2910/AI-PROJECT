@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F46E5" stop-opacity="0.25"/>
+      <stop offset="50%" stop-color="#06B6D4" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0.8"/>
+    </linearGradient>
+    <linearGradient id="primaryGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="accentGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#EF4444"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <rect width="600" height="400" rx="16" fill="url(#bgGrad)"/>
+  
+  <!-- Neural Grid Connections -->
+  <g stroke="rgba(99, 102, 241, 0.25)" stroke-width="1.5" stroke-dasharray="4,4">
+    <line x1="120" y1="100" x2="300" y2="70"/>
+    <line x1="120" y1="100" x2="280" y2="190"/>
+    <line x1="120" y1="230" x2="280" y2="190"/>
+    <line x1="120" y1="230" x2="300" y2="310"/>
+    <line x1="300" y1="70" x2="480" y2="140"/>
+    <line x1="280" y1="190" x2="480" y2="140"/>
+    <line x1="280" y1="190" x2="480" y2="260"/>
+    <line x1="300" y1="310" x2="480" y2="260"/>
+  </g>
+
+  <!-- Solid Rule Paths -->
+  <path d="M 120 100 L 300 70 L 480 140" fill="none" stroke="url(#primaryGlow)" stroke-width="3" filter="url(#glow)"/>
+  <path d="M 120 230 L 280 190 L 480 260" fill="none" stroke="url(#accentGlow)" stroke-width="2.5"/>
+
+  <!-- Knowledge Nodes -->
+  <g id="nodes">
+    <!-- Student Fact Nodes -->
+    <circle cx="120" cy="100" r="18" fill="#1E293B" stroke="#6366F1" stroke-width="3"/>
+    <text x="120" y="104" text-anchor="middle" fill="#E2E8F0" font-family="sans-serif" font-size="10" font-weight="bold">Facts</text>
+
+    <circle cx="120" cy="230" r="18" fill="#1E293B" stroke="#06B6D4" stroke-width="3"/>
+    <text x="120" y="234" text-anchor="middle" fill="#E2E8F0" font-family="sans-serif" font-size="10" font-weight="bold">Goals</text>
+
+    <!-- Default Logic Rules -->
+    <rect x="250" y="50" width="100" height="40" rx="8" fill="#1E1B4B" stroke="#6366F1" stroke-width="2"/>
+    <text x="300" y="68" text-anchor="middle" fill="#818CF8" font-family="sans-serif" font-size="11" font-weight="bold">Default Rule</text>
+    <text x="300" y="82" text-anchor="middle" fill="#94A3B8" font-family="sans-serif" font-size="9">If Track(AI) → Elective</text>
+
+    <rect x="230" y="170" width="100" height="40" rx="8" fill="#311313" stroke="#F59E0B" stroke-width="2"/>
+    <text x="280" y="188" text-anchor="middle" fill="#FBBF24" font-family="sans-serif" font-size="11" font-weight="bold">Defeater Check</text>
+    <text x="280" y="202" text-anchor="middle" fill="#94A3B8" font-family="sans-serif" font-size="9">Prerequisites Cleared?</text>
+
+    <rect x="250" y="290" width="100" height="40" rx="8" fill="#064E3B" stroke="#10B981" stroke-width="2"/>
+    <text x="300" y="308" text-anchor="middle" fill="#34D399" font-family="sans-serif" font-size="11" font-weight="bold">Credit Check</text>
+    <text x="300" y="322" text-anchor="middle" fill="#94A3B8" font-family="sans-serif" font-size="9">Under Cap</text>
+
+    <!-- Output Course Decision Nodes -->
+    <circle cx="480" cy="140" r="24" fill="#1E293B" stroke="#10B981" stroke-width="4" filter="url(#glow)"/>
+    <text x="480" y="142" text-anchor="middle" fill="#10B981" font-family="sans-serif" font-size="12" font-weight="bold">96%</text>
+    <text x="480" y="154" text-anchor="middle" fill="#CBD5E1" font-family="sans-serif" font-size="8">CS401</text>
+
+    <circle cx="480" cy="260" r="22" fill="#1E293B" stroke="#F59E0B" stroke-width="3"/>
+    <text x="480" y="262" text-anchor="middle" fill="#F59E0B" font-family="sans-serif" font-size="11" font-weight="bold">Block</text>
+    <text x="480" y="274" text-anchor="middle" fill="#CBD5E1" font-family="sans-serif" font-size="8">CS450</text>
+  </g>
+</svg>
